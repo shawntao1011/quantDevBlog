@@ -1,4 +1,4 @@
-baseurl: https://example.com
+baseurl: https://shawntao1011.github.io/quantDevBlog/
 languageCode: en-us
 theme: hugo-theme-stack
 paginate: 5
