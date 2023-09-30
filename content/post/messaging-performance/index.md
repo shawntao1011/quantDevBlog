@@ -1,26 +1,48 @@
 +++
-author = "Hugo Authors"
-title = "Placeholder Text"
-date = "2019-03-09"
-description = "Lorem Ipsum Dolor Si Amet"
+author = "Tao"
+title = "messaging solutions' performance for kdb arch"
+date = "2023-09-27"
+description = "performance compare on kafka, solace and tickerplant"
 categories = [
-    "Test",
-    "Test with whitespaces"
+    "messaging",
+    "performance testing"
 ]
 tags = [
-    "markdown",
-    "text",
-    "tag with whitespaces"
+    "kafka",
+    "solace",
+    "tickerplant"
 ]
-image = "matt-le-SJSpo9hQf7s-unsplash.jpg"
+image = "images/streaming.jpg"
 +++
 
-Lorem est tota propiore conpellat pectoribus de pectora summo. <!--more-->Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.
+Test data is a txt file of 2 million rows of Json. The json are consist of jsonlized Ticks and Txns data.
 
-1. Exierant elisi ambit vivere dedere
-2. Duce pollice
-3. Eris modo
-4. Spargitque ferrea quos palude
+## q tickerplant
+![kdb_tickerplant_frame](images/kdb_tp_frame.png)
+
+### feeder
+
+{{< gist shawntao1011 df454f98c1078c73fb488234cab1c0fc >}}
+
+### tp
+
+### rdb
+
+## kafka
+
+### feeder
+
+### kafka server
+
+### rdb
+
+## solace
+
+### feeder
+
+### solace instant
+
+### rdb
 
 Rursus nulli murmur; hastile inridet ut ab gravi sententia! Nomine potitus silentia flumen, sustinet placuit petis in dilapsa erat sunt. Atria tractus malis.
 
