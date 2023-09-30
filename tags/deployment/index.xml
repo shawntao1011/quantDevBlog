@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>deployment on Tao's blog</title><link>https://shawntao1011.github.io/quantDevBlog/tags/deployment/</link><description>Recent content in deployment on Tao's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>shawntao1011</copyright><lastBuildDate>Thu, 14 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://shawntao1011.github.io/quantDevBlog/tags/deployment/index.xml" rel="self" type="application/rss+xml"/><item><title>KDB Q deployment</title><link>https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/</link><pubDate>Thu, 14 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/images/kdbinfo.png" alt="Featured image of post KDB Q deployment" />&lt;p>This is my deployment of kdb q.&lt;/p>
+&lt;h2 id="linux-deployment">Linux deployment&lt;/h2>
+&lt;p>Reference on how to have multiple version of kdb (kdb version and bit version): &lt;a class="link" href="https://code.kx.com/q/kb/versions" target="_blank" rel="noopener"
+>multiVersion&lt;/a>&lt;/p>
+&lt;p>sample dir:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ tree q
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">q
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── k4.lic
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── v3.5
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ ├── m32
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ │ └── q
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ ├── m64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ │ └── q
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│ └── q.k
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└── v4.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── m64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ └── q
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> └── q.k
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>In this environment, two version of 64 bit q binary and one 32 bit q binary are available. But the&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">q
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>command will call the one with alias. To have access to multiple version access, we can set alias shortcut as q32 q64 etc.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="k">export&lt;/span> &lt;span class="n">QLIC&lt;/span>&lt;span class="o">=~/&lt;/span>&lt;span class="n">q&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">alias&lt;/span> &lt;span class="n">q&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;export QHOME=~/q/v4.0; rlwrap -r $QHOME/m64/q&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">alias&lt;/span> &lt;span class="n">q3&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;export QHOME=~/q/v3.5; rlwrap -r $QHOME/m64/q&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">alias&lt;/span> &lt;span class="n">q32&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;export QHOME=~/q/v3.5; rlwrap -r $QHOME/m32/q&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="windows-deployment">windows deployment&lt;/h2>
+&lt;p>Windows defers from Linux, environment varibale redefine requires shell to reopen.&lt;/p>
+&lt;p>We need to set different environment to start correspnoding q.exe.&lt;/p>
+&lt;p>The &amp;ldquo;QHOME&amp;rdquo; envrionment is the core to startup a q.exe, as it not only defines the loading directory but also determines the q.exe path.&lt;/p>
+&lt;p>&lt;img src="https://shawntao1011.github.io/quantDevBlog/quantDevBlog/p/kdb-q-deployment/images/windowsQHOME.png"
+width="649"
+height="125"
+srcset="https://shawntao1011.github.io/quantDevBlog/quantDevBlog/p/kdb-q-deployment/images/windowsQHOME_hu7543c2d44e2045dde723526bc26637ff_5818_480x0_resize_box_3.png 480w, https://shawntao1011.github.io/quantDevBlog/quantDevBlog/p/kdb-q-deployment/images/windowsQHOME_hu7543c2d44e2045dde723526bc26637ff_5818_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="QHOME"
+class="gallery-image"
+data-flex-grow="519"
+data-flex-basis="1246px"
+>&lt;/p>
+&lt;p>Add the following to path:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">%QHOME%/w32
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
