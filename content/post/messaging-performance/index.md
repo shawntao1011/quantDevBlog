@@ -18,6 +18,45 @@ image = "images/streaming.jpg"
 ## test detail and environment
 Test data is a txt file of 2 million rows of Json. The json are consist of jsonlized Ticks and Txns data.
 
+sample(one json one row):
+```
+"{
+    "date":"yyyy-mm-ddThh:mm:ss.sssssssss",
+    "sym":"xxxxxx.xx",
+    "time":"yyyy-mm-ddThh:mm:ss.sssssssss",
+    "ticker":"xxxxxx",
+    "side":"N",
+    "px":0,
+    "size":xxx,
+    "index":xxxxxx,
+    "askId":0,
+    "bidId":xxxxxx,
+    "ordType":"0",
+    "func":"C"
+}",
+"{
+    "date":"yyyy-mm-ddThh:mm:ss.sssssssss",
+    "sym":"xxxxxx.xx",
+    "time":"yyyy-mm-ddThh:mm:ss.sssssssss",
+    "open":xx.xx,
+    "high":xx.xx,
+    "low":xx.xx,
+    "preclose":xx.xx,
+    "px":xx.xx,
+    "match":xxxx,
+    "volume":xxxxxx,
+    "amt":xxxxxxx,
+    "asks":[xx.89,xx.9,xx.91,xx.93,xx.94,xx.95,xx.96,xx.97,xx.99,xx],
+    "avgAsk":xx.xx,
+    "askSizes":[4800,75300,300,1600,5200,5000,5100,300,3800,104446],"totalAskSize":xxxxxx,
+    "bids":[xx.88,xx.87,xx.86,xx.85,xx.84,xx.83,xx.82,xx.81,xx.8,xx.79],
+    "avgBid":xx.xx,
+    "bidSizes":[2500,1800,500,5900,6500,3600,2000,6200,18700,4000],"totalBidSize":xxxxxx,
+    "presettle":null,
+    "settle":null
+}"
+```
+
 ## q tickerplant
 ![kdb_tickerplant_frame](images/kdb_tp_frame.png)
 
@@ -29,7 +68,9 @@ FH, RDB, RTS publish and subscribe data through KDB Q IPC.
 
 **Pub Speed:** </p> 1 million msgs 6 second
 
-**Deserialize speed:**  </p> no need to deserialize
+**Deserialize**  </p> no need to deserialize
+
+**Replay**  </p> 1 million msgs 10 second
 
 ### feeder
 
@@ -59,7 +100,11 @@ PubSub is performed remotely in the same local network.
 
 **Pub Speed:** </p> 1 million msgs 7.5 second
 
-**Deserialize speed:**  </p> 1 million msgs 36 second
+**Deserialize:**  </p> 1 million msgs 36 second
+
+**Consume Speed:** </p> 1 million msgs total 50 second, include deserialize and upd to table.
+
+**Replay performance** </p> performance is exactly the same as consumer.
 
 ### feeder
 
@@ -84,11 +129,48 @@ bin\kafka-server-start.bat config\server.properties
 
 {{< gist shawntao1011 e9ba596c035820562fe9f6ed19501bb9 >}}
 
+### replay
+
+replay in kafka requires to change the client config. The other is exactly the same as start a consumer.
+```
+client: .kfk.Consumer[
+ ....
+    (`group.id;`new port number);
+    //(`auto.offset.reset;`latest)
+    (`auto.offset.reset;`earliest)
+ ];
+```
+
 ## solace
 
-### feeder
+🐣 [solace container guide](https://solace.com/products/event-broker/software/getting-started/)
+
+🐥 [solace kx library](https://github.com/KxSystems/solace)
+
+### Performance Highlights
+
+**Pub Speed:** </p> 1 million msgs 55 second
+
+**Deserialize:**  </p> 1 million msgs 36 second
+
+**Consume Speed:** </p> 1 million msgs total 1min45s, include deserialize and upd to table.
+
+**Replay performance** </p> 1 millon msgs 150 seconds
+
+### producer
+
+{{< gist shawntao1011 ace523e6a136828e27c0226491737109 >}}
 
 ### solace instant
+```
+docker run -d -p 8080:8080 -p 55555:55555 -p 8008:8008 -p 1883:1883 -p 8000:8000 -p 5672:5672 -p 9000:9000 -p 2222:2222 --shm-size=2g --env username_admin_globalaccesslevel=admin --env username_admin_password=admin --name=solace solace/solace-pubsub-standard
+```
 
-### rdb
+### consumer
+
+{{< gist shawntao1011 051079edf1fdbe54595617dd4539cbd4 >}}
+
+### replay
+
+{{< youtube HuYgF_IsfXw >}}
 
