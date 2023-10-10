@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Tao's blog</title><link>https://shawntao1011.github.io/quantDevBlog/post/</link><description>Recent content in Posts on Tao's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>shawntao1011</copyright><lastBuildDate>Wed, 27 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://shawntao1011.github.io/quantDevBlog/post/index.xml" rel="self" type="application/rss+xml"/><item><title>messaging solutions' performance for kdb arch</title><link>https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/</link><pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/images/streaming.jpg" alt="Featured image of post messaging solutions' performance for kdb arch" />&lt;h2 id="test-detail-and-environment">test detail and environment&lt;/h2>
 &lt;p>Test data is a txt file of 2 million rows of Json. The json are consist of jsonlized Ticks and Txns data.&lt;/p>
-&lt;h2 id="q-tickerplant">q tickerplant&lt;/h2>
+&lt;p>sample(one json one row):&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">&amp;#34;{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;date&amp;#34;:&amp;#34;yyyy-mm-ddThh:mm:ss.sssssssss&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;sym&amp;#34;:&amp;#34;xxxxxx.xx&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;time&amp;#34;:&amp;#34;yyyy-mm-ddThh:mm:ss.sssssssss&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;ticker&amp;#34;:&amp;#34;xxxxxx&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;side&amp;#34;:&amp;#34;N&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;px&amp;#34;:0,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;size&amp;#34;:xxx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;index&amp;#34;:xxxxxx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;askId&amp;#34;:0,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;bidId&amp;#34;:xxxxxx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;ordType&amp;#34;:&amp;#34;0&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;func&amp;#34;:&amp;#34;C&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;#34;{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;date&amp;#34;:&amp;#34;yyyy-mm-ddThh:mm:ss.sssssssss&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;sym&amp;#34;:&amp;#34;xxxxxx.xx&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;time&amp;#34;:&amp;#34;yyyy-mm-ddThh:mm:ss.sssssssss&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;open&amp;#34;:xx.xx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;high&amp;#34;:xx.xx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;low&amp;#34;:xx.xx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;preclose&amp;#34;:xx.xx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;px&amp;#34;:xx.xx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;match&amp;#34;:xxxx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;volume&amp;#34;:xxxxxx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;amt&amp;#34;:xxxxxxx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;asks&amp;#34;:[xx.89,xx.9,xx.91,xx.93,xx.94,xx.95,xx.96,xx.97,xx.99,xx],
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;avgAsk&amp;#34;:xx.xx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;askSizes&amp;#34;:[4800,75300,300,1600,5200,5000,5100,300,3800,104446],&amp;#34;totalAskSize&amp;#34;:xxxxxx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;bids&amp;#34;:[xx.88,xx.87,xx.86,xx.85,xx.84,xx.83,xx.82,xx.81,xx.8,xx.79],
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;avgBid&amp;#34;:xx.xx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;bidSizes&amp;#34;:[2500,1800,500,5900,6500,3600,2000,6200,18700,4000],&amp;#34;totalBidSize&amp;#34;:xxxxxx,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;presettle&amp;#34;:null,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;settle&amp;#34;:null
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="q-tickerplant">q tickerplant&lt;/h2>
 &lt;p>&lt;img src="https://shawntao1011.github.io/quantDevBlog/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/images/kdb_tp_frame.png"
 width="874"
 height="382"
@@ -15,7 +92,8 @@ data-flex-basis="549px"
 &lt;p>FH, RDB, RTS publish and subscribe data through KDB Q IPC.&lt;/p>
 &lt;h3 id="performance-highlights">Performance Highlights&lt;/h3>
 &lt;p>&lt;strong>Pub Speed:&lt;/strong> &lt;/p> 1 million msgs 6 second&lt;/p>
-&lt;p>&lt;strong>Deserialize speed:&lt;/strong> &lt;/p> no need to deserialize&lt;/p>
+&lt;p>&lt;strong>Deserialize&lt;/strong> &lt;/p> no need to deserialize&lt;/p>
+&lt;p>&lt;strong>Replay&lt;/strong> &lt;/p> 1 million msgs 10 second&lt;/p>
 &lt;h3 id="feeder">feeder&lt;/h3>
 &lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/df454f98c1078c73fb488234cab1c0fc.js">&lt;/script>
 &lt;h3 id="tp">tp&lt;/h3>
@@ -31,7 +109,9 @@ data-flex-basis="549px"
 >kx kafka library&lt;/a>&lt;/p>
 &lt;h3 id="performance-highlights-1">Performance Highlights&lt;/h3>
 &lt;p>&lt;strong>Pub Speed:&lt;/strong> &lt;/p> 1 million msgs 7.5 second&lt;/p>
-&lt;p>&lt;strong>Deserialize speed:&lt;/strong> &lt;/p> 1 million msgs 36 second&lt;/p>
+&lt;p>&lt;strong>Deserialize:&lt;/strong> &lt;/p> 1 million msgs 36 second&lt;/p>
+&lt;p>&lt;strong>Consume Speed:&lt;/strong> &lt;/p> 1 million msgs total 50 second, include deserialize and upd to table.&lt;/p>
+&lt;p>&lt;strong>Replay performance&lt;/strong> &lt;/p> performance is exactly the same as consumer.&lt;/p>
 &lt;h3 id="feeder-1">feeder&lt;/h3>
 &lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/627ee401bd560988f281e7fb08b5cd41.js">&lt;/script>
 &lt;h3 id="kafka-server">kafka server&lt;/h3>
@@ -58,10 +138,58 @@ data-flex-basis="549px"
 &lt;/div>
 &lt;/div>&lt;h3 id="consumer">consumer&lt;/h3>
 &lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/e9ba596c035820562fe9f6ed19501bb9.js">&lt;/script>
-&lt;h2 id="solace">solace&lt;/h2>
-&lt;h3 id="feeder-2">feeder&lt;/h3>
+&lt;h3 id="replay">replay&lt;/h3>
+&lt;p>replay in kafka requires to change the client config. The other is exactly the same as start a consumer.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">client: .kfk.Consumer[
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ....
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> (`group.id;`new port number);
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> //(`auto.offset.reset;`latest)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> (`auto.offset.reset;`earliest)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ];
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="solace">solace&lt;/h2>
+&lt;p>🐣 &lt;a class="link" href="https://solace.com/products/event-broker/software/getting-started/" target="_blank" rel="noopener"
+>solace container guide&lt;/a>&lt;/p>
+&lt;p>🐥 &lt;a class="link" href="https://github.com/KxSystems/solace" target="_blank" rel="noopener"
+>solace kx library&lt;/a>&lt;/p>
+&lt;h3 id="performance-highlights-2">Performance Highlights&lt;/h3>
+&lt;p>&lt;strong>Pub Speed:&lt;/strong> &lt;/p> 1 million msgs 55 second&lt;/p>
+&lt;p>&lt;strong>Deserialize:&lt;/strong> &lt;/p> 1 million msgs 36 second&lt;/p>
+&lt;p>&lt;strong>Consume Speed:&lt;/strong> &lt;/p> 1 million msgs total 1min45s, include deserialize and upd to table.&lt;/p>
+&lt;p>&lt;strong>Replay performance&lt;/strong> &lt;/p> 1 millon msgs 150 seconds&lt;/p>
+&lt;h3 id="producer">producer&lt;/h3>
+&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/ace523e6a136828e27c0226491737109.js">&lt;/script>
 &lt;h3 id="solace-instant">solace instant&lt;/h3>
-&lt;h3 id="rdb-1">rdb&lt;/h3></description></item><item><title>KDB Q deployment</title><link>https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/</link><pubDate>Thu, 14 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/images/kdbinfo.png" alt="Featured image of post KDB Q deployment" />&lt;p>This is my deployment of kdb q.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">docker run -d -p 8080:8080 -p 55555:55555 -p 8008:8008 -p 1883:1883 -p 8000:8000 -p 5672:5672 -p 9000:9000 -p 2222:2222 --shm-size=2g --env username_admin_globalaccesslevel=admin --env username_admin_password=admin --name=solace solace/solace-pubsub-standard
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="consumer-1">consumer&lt;/h3>
+&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/051079edf1fdbe54595617dd4539cbd4.js">&lt;/script>
+&lt;h3 id="replay-1">replay&lt;/h3>
+&lt;div class="video-wrapper">
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/HuYgF_IsfXw"
+allowfullscreen
+title="YouTube Video"
+>
+&lt;/iframe>
+&lt;/div></description></item><item><title>KDB Q deployment</title><link>https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/</link><pubDate>Thu, 14 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/images/kdbinfo.png" alt="Featured image of post KDB Q deployment" />&lt;p>This is my deployment of kdb q.&lt;/p>
 &lt;h2 id="linux-deployment">Linux deployment&lt;/h2>
 &lt;p>Reference on how to have multiple version of kdb (kdb version and bit version): &lt;a class="link" href="https://code.kx.com/q/kb/versions" target="_blank" rel="noopener"
 >multiVersion&lt;/a>&lt;/p>
