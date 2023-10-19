@@ -5,7 +5,7 @@ date = "2023-09-27"
 description = "performance compare on kafka, solace and tickerplant"
 categories = [
     "messaging",
-    "performance testing"
+    "proofOfConcept"
 ]
 tags = [
     "kafka",
@@ -122,7 +122,7 @@ bin\windows\zookeeper-server-start.bat config\zookeeper.properties
 ```
 The server need to <font color=red>add</font> *advertised.listeners=PLAINTEXT://your.host.name:9092*
 ```
-bin\kafka-server-start.bat config\server.properties
+bin\windows\kafka-server-start.bat config\server.properties
 ```
 
 ### consumer
