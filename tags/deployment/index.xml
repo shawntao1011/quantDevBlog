@@ -1,4 +1,59 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>deployment on Tao's blog</title><link>https://shawntao1011.github.io/quantDevBlog/tags/deployment/</link><description>Recent content in deployment on Tao's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>shawntao1011</copyright><lastBuildDate>Thu, 14 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://shawntao1011.github.io/quantDevBlog/tags/deployment/index.xml" rel="self" type="application/rss+xml"/><item><title>KDB Q deployment</title><link>https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/</link><pubDate>Thu, 14 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/images/kdbinfo.png" alt="Featured image of post KDB Q deployment" />&lt;p>This is my deployment of kdb q.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>deployment on Tao's blog</title><link>https://shawntao1011.github.io/quantDevBlog/tags/deployment/</link><description>Recent content in deployment on Tao's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>shawntao1011</copyright><lastBuildDate>Thu, 19 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://shawntao1011.github.io/quantDevBlog/tags/deployment/index.xml" rel="self" type="application/rss+xml"/><item><title>torQ notes</title><link>https://shawntao1011.github.io/quantDevBlog/p/torq-notes/</link><pubDate>Thu, 19 Oct 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/torq-notes/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/torq-notes/images/torQLogo.png" alt="Featured image of post torQ notes" />&lt;p>Torq, mainly the &lt;font color=blue>torq.q&lt;/font>, is a framework provided by Data Intellect. It implements some core functionality and utilities on top of kdb+, allowing developers to concentrate on the application business logic.&lt;/p>
+&lt;p>&lt;img src="https://shawntao1011.github.io/quantDevBlog/quantDevBlog/image.png"
+loading="lazy"
+alt="TorQ Arch"
+>&lt;/p>
+&lt;h2 id="quick-deploy">Quick Deploy&lt;/h2>
+&lt;p>For a minimized TorQ deployment with appliable business logic, the following components(processes) should be configured:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>discovery&lt;/p>
+&lt;p>&amp;ldquo;Processes use the discovery service to register their own availability, find other processes (by process type) and subscribe to receive updates for new process availability (by process type).&amp;rdquo;&lt;/p>
+&lt;p>The following are some important facts of discovery service:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>The tickerplant process, which is the most important part of the whole pipeline system, is not (and shall not) registered or informed through discovery service.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>The raw discovery mainly focus on the following information&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">q).servers.SERVERS
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">procname proctype hpup w hits startp lastp endp attributes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--------------------------------------------------------------------------------------------------------------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">discovery-1 discovery :laptop-emhga05g:11001 0 2023.10.24D03:32:29.291568000 ()!()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">monitor-1 monitor :laptop-emhga05g:11000 0 2023.10.24D03:32:30.117205000 ()!()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tickerplant-mkt tickerplant :laptop-emhga05g:11002 0 2023.10.24D03:32:30.117205000 ()!()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gateway-1 gateway :laptop-emhga05g:11003 0 2023.10.24D03:32:30.117205000 ()!()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rdb-1 rdb :laptop-emhga05g:11004 0 2023.10.24D03:32:30.117205000 ()!()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>monitor&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>tickerplant&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>gateway&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>rdb&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>KDB Q deployment</title><link>https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/</link><pubDate>Thu, 14 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/kdb-q-deployment/images/kdbinfo.png" alt="Featured image of post KDB Q deployment" />&lt;p>This is my deployment of kdb q.&lt;/p>
 &lt;h2 id="linux-deployment">Linux deployment&lt;/h2>
 &lt;p>Reference on how to have multiple version of kdb (kdb version and bit version): &lt;a class="link" href="https://code.kx.com/q/kb/versions" target="_blank" rel="noopener"
 >multiVersion&lt;/a>&lt;/p>

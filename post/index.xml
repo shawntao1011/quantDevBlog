@@ -1,4 +1,184 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Tao's blog</title><link>https://shawntao1011.github.io/quantDevBlog/post/</link><description>Recent content in Posts on Tao's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>shawntao1011</copyright><lastBuildDate>Wed, 27 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://shawntao1011.github.io/quantDevBlog/post/index.xml" rel="self" type="application/rss+xml"/><item><title>messaging solutions' performance for kdb arch</title><link>https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/</link><pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/images/streaming.jpg" alt="Featured image of post messaging solutions' performance for kdb arch" />&lt;h2 id="test-detail-and-environment">test detail and environment&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Tao's blog</title><link>https://shawntao1011.github.io/quantDevBlog/post/</link><description>Recent content in Posts on Tao's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>shawntao1011</copyright><lastBuildDate>Fri, 17 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://shawntao1011.github.io/quantDevBlog/post/index.xml" rel="self" type="application/rss+xml"/><item><title>network programming concepts</title><link>https://shawntao1011.github.io/quantDevBlog/p/network-programming-concepts/</link><pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/network-programming-concepts/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/network-programming-concepts/images/networkProgrammingConcepts.png" alt="Featured image of post network programming concepts" />&lt;p>My notes on learning network programming. This post is mainly on concepts and examples from&lt;/p>
+&lt;p>&lt;a class="link" href="https://beej.us/guide/bgnet/" target="_blank" rel="noopener"
+>Beej&amp;rsquo;s Guide to Network Programming Using Internet Sockets&lt;/a>&lt;/p>
+&lt;p>The original Beej&amp;rsquo;s guide only provide Unix/Linux source code examples. Windows example src, mentioned in Beej&amp;rsquo;s guide, is provided on&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.tallyhawk.net/WinsockExamples" target="_blank" rel="noopener"
+>Beej&amp;rsquo;s Socket examples ported to windows&lt;/a>&lt;/p>
+&lt;h2 id="structs-and-functions">Structs and functions&lt;/h2>
+&lt;ul>
+&lt;li>addrinfo: one of the &lt;strong>first&lt;/strong> thing to call when making a connection&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">struct&lt;/span> &lt;span class="nc">addrinfo&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">ai_flags&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// AI_PASSIVE, AI_CANONNAME, etc.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">ai_family&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// AF_INET, AF_INET6, AF_UNSPEC
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">ai_socktype&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// SOCK_STREAM, SOCK_DGRAM
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">ai_protocol&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// use 0 for &amp;#34;any&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">size_t&lt;/span> &lt;span class="n">ai_addrlen&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// size of ai_addr in bytes
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="nc">sockaddr&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">ai_addr&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// struct sockaddr_in or _in6
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">ai_canonname&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// full canonical hostname
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="nc">addrinfo&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">ai_next&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// linked list, next node
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;em>Note: the ai_next is a linked list to next node&lt;/em>&lt;/p>
+&lt;p>where struct sockaddr is :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">struct&lt;/span> &lt;span class="nc">sockaddr&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">short&lt;/span> &lt;span class="n">sa_family&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// address family, AF_xxx
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="n">sa_data&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">14&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">// 14 bytes of protocol address
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The &lt;em>sa_family&lt;/em> can be set to AF_INET (IPV4) or AF_INET6 (IPV6).&lt;/p>
+&lt;p>Since the &lt;em>sa_data&lt;/em> is not going to be manually packed. Programmers created a parallel structure &lt;em>sockaddr_in&lt;/em> to be used with IPv4.&lt;/p>
+&lt;p>And here is the trick: a pointer to a struct &lt;em>sockaddr_in&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">struct&lt;/span> &lt;span class="nc">sockaddr_in&lt;/span> &lt;span class="n">addr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{...}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>can be cast to a pointer to a struct sockaddr and &lt;em>vice-versa&lt;/em>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="nc">sockaddr&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">addr&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>So, even a function call requires &amp;ldquo;a pointer to a struct sockaddr&amp;rdquo;, we can still work on &lt;em>sockaddr_in&lt;/em> at the last minutes.&lt;/p>
+&lt;p>For instance:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// bind socket fd
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="nc">sockaddr_in&lt;/span> &lt;span class="n">addr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_fmily&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">AF_INET&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_port&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">noths&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">12345&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">sin_addr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">s_addr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ntohl&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="n">res&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fd&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="n">sockadr&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">sizeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The struct &lt;em>sockaddr_in&lt;/em>:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// (IPv4 only--see struct sockaddr_in6 for IPv6)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="nc">sockaddr_in&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">short&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">sin_family&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Address family, AF_INET
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">short&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">sin_port&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Port number
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="nc">in_addr&lt;/span> &lt;span class="n">sin_addr&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Internet address
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">char&lt;/span> &lt;span class="n">sin_zero&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">];&lt;/span>&lt;span class="c1">// Same size as struct sockaddr
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Internet address (a structure for historical reasons)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">struct&lt;/span> &lt;span class="nc">in_addr&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">uint32_t&lt;/span> &lt;span class="n">s_addr&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// that&amp;#39;s a 32-bit int (4 bytes)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="heading">&lt;/h2></description></item><item><title>torQ notes</title><link>https://shawntao1011.github.io/quantDevBlog/p/torq-notes/</link><pubDate>Thu, 19 Oct 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/torq-notes/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/torq-notes/images/torQLogo.png" alt="Featured image of post torQ notes" />&lt;p>Torq, mainly the &lt;font color=blue>torq.q&lt;/font>, is a framework provided by Data Intellect. It implements some core functionality and utilities on top of kdb+, allowing developers to concentrate on the application business logic.&lt;/p>
+&lt;p>&lt;img src="https://shawntao1011.github.io/quantDevBlog/quantDevBlog/image.png"
+loading="lazy"
+alt="TorQ Arch"
+>&lt;/p>
+&lt;h2 id="quick-deploy">Quick Deploy&lt;/h2>
+&lt;p>For a minimized TorQ deployment with appliable business logic, the following components(processes) should be configured:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>discovery&lt;/p>
+&lt;p>&amp;ldquo;Processes use the discovery service to register their own availability, find other processes (by process type) and subscribe to receive updates for new process availability (by process type).&amp;rdquo;&lt;/p>
+&lt;p>The following are some important facts of discovery service:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>The tickerplant process, which is the most important part of the whole pipeline system, is not (and shall not) registered or informed through discovery service.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>The raw discovery mainly focus on the following information&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">q).servers.SERVERS
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">procname proctype hpup w hits startp lastp endp attributes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--------------------------------------------------------------------------------------------------------------
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">discovery-1 discovery :laptop-emhga05g:11001 0 2023.10.24D03:32:29.291568000 ()!()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">monitor-1 monitor :laptop-emhga05g:11000 0 2023.10.24D03:32:30.117205000 ()!()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tickerplant-mkt tickerplant :laptop-emhga05g:11002 0 2023.10.24D03:32:30.117205000 ()!()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gateway-1 gateway :laptop-emhga05g:11003 0 2023.10.24D03:32:30.117205000 ()!()
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rdb-1 rdb :laptop-emhga05g:11004 0 2023.10.24D03:32:30.117205000 ()!()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>monitor&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>tickerplant&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>gateway&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>rdb&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>messaging solutions' performance for kdb arch</title><link>https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/</link><pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/images/streaming.jpg" alt="Featured image of post messaging solutions' performance for kdb arch" />&lt;h2 id="test-detail-and-environment">test detail and environment&lt;/h2>
 &lt;p>Test data is a txt file of 2 million rows of Json. The json are consist of jsonlized Ticks and Txns data.&lt;/p>
 &lt;p>sample(one json one row):&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -95,13 +275,13 @@ data-flex-basis="549px"
 &lt;p>&lt;strong>Deserialize&lt;/strong> &lt;/p> no need to deserialize&lt;/p>
 &lt;p>&lt;strong>Replay&lt;/strong> &lt;/p> 1 million msgs 10 second&lt;/p>
 &lt;h3 id="feeder">feeder&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/df454f98c1078c73fb488234cab1c0fc.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/df454f98c1078c73fb488234cab1c0fc.js">&lt;/script>
 &lt;h3 id="tp">tp&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/76c03051815b23121346122a010fd79a.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/76c03051815b23121346122a010fd79a.js">&lt;/script>
 &lt;h3 id="rdb">rdb&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/b572b865fd55baa366c900687bbe5f2a.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/b572b865fd55baa366c900687bbe5f2a.js">&lt;/script>
 &lt;h3 id="runcmd">run.cmd&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/76c03051815b23121346122a010fd79a.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/76c03051815b23121346122a010fd79a.js">&lt;/script>
 &lt;h2 id="kafka">kafka&lt;/h2>
 &lt;p>Kafka server is on the same host with tickerplant.&lt;/p>
 &lt;p>PubSub is performed remotely in the same local network.&lt;/p>
@@ -113,7 +293,7 @@ data-flex-basis="549px"
 &lt;p>&lt;strong>Consume Speed:&lt;/strong> &lt;/p> 1 million msgs total 50 second, include deserialize and upd to table.&lt;/p>
 &lt;p>&lt;strong>Replay performance&lt;/strong> &lt;/p> performance is exactly the same as consumer.&lt;/p>
 &lt;h3 id="feeder-1">feeder&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/627ee401bd560988f281e7fb08b5cd41.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/627ee401bd560988f281e7fb08b5cd41.js">&lt;/script>
 &lt;h3 id="kafka-server">kafka server&lt;/h3>
 &lt;p>To download kafka, please take reference &lt;a class="link" href="https://kafka.apache.org/documentation.html#quickstart" target="_blank" rel="noopener"
 >kafka quick setup&lt;/a>.&lt;/p>
@@ -137,7 +317,7 @@ data-flex-basis="549px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="consumer">consumer&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/e9ba596c035820562fe9f6ed19501bb9.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/e9ba596c035820562fe9f6ed19501bb9.js">&lt;/script>
 &lt;h3 id="replay">replay&lt;/h3>
 &lt;p>replay in kafka requires to change the client config. The other is exactly the same as start a consumer.&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -169,7 +349,7 @@ data-flex-basis="549px"
 &lt;p>&lt;strong>Consume Speed:&lt;/strong> &lt;/p> 1 million msgs total 1min45s, include deserialize and upd to table.&lt;/p>
 &lt;p>&lt;strong>Replay performance&lt;/strong> &lt;/p> 1 millon msgs 150 seconds&lt;/p>
 &lt;h3 id="producer">producer&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/ace523e6a136828e27c0226491737109.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/ace523e6a136828e27c0226491737109.js">&lt;/script>
 &lt;h3 id="solace-instant">solace instant&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -180,7 +360,7 @@ data-flex-basis="549px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="consumer-1">consumer&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/051079edf1fdbe54595617dd4539cbd4.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/051079edf1fdbe54595617dd4539cbd4.js">&lt;/script>
 &lt;h3 id="replay-1">replay&lt;/h3>
 &lt;div class="video-wrapper">
 &lt;iframe loading="lazy"

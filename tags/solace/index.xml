@@ -95,13 +95,13 @@ data-flex-basis="549px"
 &lt;p>&lt;strong>Deserialize&lt;/strong> &lt;/p> no need to deserialize&lt;/p>
 &lt;p>&lt;strong>Replay&lt;/strong> &lt;/p> 1 million msgs 10 second&lt;/p>
 &lt;h3 id="feeder">feeder&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/df454f98c1078c73fb488234cab1c0fc.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/df454f98c1078c73fb488234cab1c0fc.js">&lt;/script>
 &lt;h3 id="tp">tp&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/76c03051815b23121346122a010fd79a.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/76c03051815b23121346122a010fd79a.js">&lt;/script>
 &lt;h3 id="rdb">rdb&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/b572b865fd55baa366c900687bbe5f2a.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/b572b865fd55baa366c900687bbe5f2a.js">&lt;/script>
 &lt;h3 id="runcmd">run.cmd&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/76c03051815b23121346122a010fd79a.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/76c03051815b23121346122a010fd79a.js">&lt;/script>
 &lt;h2 id="kafka">kafka&lt;/h2>
 &lt;p>Kafka server is on the same host with tickerplant.&lt;/p>
 &lt;p>PubSub is performed remotely in the same local network.&lt;/p>
@@ -113,7 +113,7 @@ data-flex-basis="549px"
 &lt;p>&lt;strong>Consume Speed:&lt;/strong> &lt;/p> 1 million msgs total 50 second, include deserialize and upd to table.&lt;/p>
 &lt;p>&lt;strong>Replay performance&lt;/strong> &lt;/p> performance is exactly the same as consumer.&lt;/p>
 &lt;h3 id="feeder-1">feeder&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/627ee401bd560988f281e7fb08b5cd41.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/627ee401bd560988f281e7fb08b5cd41.js">&lt;/script>
 &lt;h3 id="kafka-server">kafka server&lt;/h3>
 &lt;p>To download kafka, please take reference &lt;a class="link" href="https://kafka.apache.org/documentation.html#quickstart" target="_blank" rel="noopener"
 >kafka quick setup&lt;/a>.&lt;/p>
@@ -137,7 +137,7 @@ data-flex-basis="549px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="consumer">consumer&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/e9ba596c035820562fe9f6ed19501bb9.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/e9ba596c035820562fe9f6ed19501bb9.js">&lt;/script>
 &lt;h3 id="replay">replay&lt;/h3>
 &lt;p>replay in kafka requires to change the client config. The other is exactly the same as start a consumer.&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -169,7 +169,7 @@ data-flex-basis="549px"
 &lt;p>&lt;strong>Consume Speed:&lt;/strong> &lt;/p> 1 million msgs total 1min45s, include deserialize and upd to table.&lt;/p>
 &lt;p>&lt;strong>Replay performance&lt;/strong> &lt;/p> 1 millon msgs 150 seconds&lt;/p>
 &lt;h3 id="producer">producer&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/ace523e6a136828e27c0226491737109.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/ace523e6a136828e27c0226491737109.js">&lt;/script>
 &lt;h3 id="solace-instant">solace instant&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -180,7 +180,7 @@ data-flex-basis="549px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="consumer-1">consumer&lt;/h3>
-&lt;script type="application/javascript" src="https://gist.github.com/shawntao1011/051079edf1fdbe54595617dd4539cbd4.js">&lt;/script>
+&lt;script src="https://gist.github.com/shawntao1011/051079edf1fdbe54595617dd4539cbd4.js">&lt;/script>
 &lt;h3 id="replay-1">replay&lt;/h3>
 &lt;div class="video-wrapper">
 &lt;iframe loading="lazy"
