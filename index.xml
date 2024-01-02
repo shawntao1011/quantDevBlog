@@ -124,9 +124,15 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h2 id="heading">&lt;/h2></description></item><item><title>torQ notes</title><link>https://shawntao1011.github.io/quantDevBlog/p/torq-notes/</link><pubDate>Thu, 19 Oct 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/torq-notes/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/torq-notes/images/torQLogo.png" alt="Featured image of post torQ notes" />&lt;p>Torq, mainly the &lt;font color=blue>torq.q&lt;/font>, is a framework provided by Data Intellect. It implements some core functionality and utilities on top of kdb+, allowing developers to concentrate on the application business logic.&lt;/p>
-&lt;p>&lt;img src="https://shawntao1011.github.io/quantDevBlog/quantDevBlog/image.png"
+&lt;p>&lt;img src="https://shawntao1011.github.io/quantDevBlog/quantDevBlog/p/torq-notes/images/TorQStructure.png"
+width="1138"
+height="672"
+srcset="https://shawntao1011.github.io/quantDevBlog/quantDevBlog/p/torq-notes/images/TorQStructure_huc113ca42eb4f7500d4c1d8c28efc344b_87391_480x0_resize_box_3.png 480w, https://shawntao1011.github.io/quantDevBlog/quantDevBlog/p/torq-notes/images/TorQStructure_huc113ca42eb4f7500d4c1d8c28efc344b_87391_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="TorQ Arch"
+class="gallery-image"
+data-flex-grow="169"
+data-flex-basis="406px"
 >&lt;/p>
 &lt;h2 id="quick-deploy">Quick Deploy&lt;/h2>
 &lt;p>For a minimized TorQ deployment with appliable business logic, the following components(processes) should be configured:&lt;/p>
