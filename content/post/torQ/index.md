@@ -18,7 +18,7 @@ image = "images/torQlogo.png"
 
 Torq, mainly the <font color=blue>torq.q</font>, is a framework provided by Data Intellect. It implements some core functionality and utilities on top of kdb+, allowing developers to concentrate on the application business logic.
 
-![TorQ Arch](image.png)
+![TorQ Arch](images/TorQStructure.png)
 <!--more-->
 
 ## Quick Deploy
