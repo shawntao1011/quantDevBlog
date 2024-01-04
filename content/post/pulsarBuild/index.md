@@ -2,7 +2,7 @@
 author = "Tao Shawn"
 title = "pulsar build"
 date = "2024-01-02"
-description = "How to Pulsar"
+description = "How to build and use Pulsar"
 tags = [
     "messaging",
     "cpp",

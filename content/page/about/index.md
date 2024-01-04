@@ -15,8 +15,8 @@ menu:
             icon: user
 ---
 
-This is a doc website documenting my limited quant develop experience.
+This blog documentes my experience and serves as a learning notebook. 
 
-The blog is developed with Hugo and heavuly modified on [hugo theme Stack](https://github.com/CaiJimmy/hugo-theme-stack).
+The blog is developed with Hugo and heavily modified on [hugo theme Stack](https://github.com/CaiJimmy/hugo-theme-stack).
 
 
