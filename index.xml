@@ -367,8 +367,8 @@ data-flex-basis="406px"
 &lt;li>
 &lt;p>rdb&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>About</title><link>https://shawntao1011.github.io/quantDevBlog/about/</link><pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/about/</guid><description>&lt;p>This is a doc website documenting my limited quant develop experience.&lt;/p>
-&lt;p>The blog is developed with Hugo and heavuly modified on &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+&lt;/ol></description></item><item><title>About</title><link>https://shawntao1011.github.io/quantDevBlog/about/</link><pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/about/</guid><description>&lt;p>This blog documentes my experience and serves as a learning notebook.&lt;/p>
+&lt;p>The blog is developed with Hugo and heavily modified on &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
 >hugo theme Stack&lt;/a>.&lt;/p></description></item><item><title>messaging solutions' performance for kdb arch</title><link>https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/</link><pubDate>Wed, 27 Sep 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/messaging-solutions-performance-for-kdb-arch/images/streaming.jpg" alt="Featured image of post messaging solutions' performance for kdb arch" />&lt;h2 id="test-detail-and-environment">test detail and environment&lt;/h2>
 &lt;p>Test data is a txt file of 2 million rows of Json. The json are consist of jsonlized Ticks and Txns data.&lt;/p>
 &lt;p>sample(one json one row):&lt;/p>
