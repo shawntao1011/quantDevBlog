@@ -1,4 +1,145 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>experience on Tao's blog</title><link>https://shawntao1011.github.io/quantDevBlog/categories/experience/</link><description>Recent content in experience on Tao's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>shawntao1011</copyright><lastBuildDate>Thu, 19 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://shawntao1011.github.io/quantDevBlog/categories/experience/index.xml" rel="self" type="application/rss+xml"/><item><title>torQ notes</title><link>https://shawntao1011.github.io/quantDevBlog/p/torq-notes/</link><pubDate>Thu, 19 Oct 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/torq-notes/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/torq-notes/images/torQLogo.png" alt="Featured image of post torQ notes" />&lt;p>Torq, mainly the &lt;font color=blue>torq.q&lt;/font>, is a framework provided by Data Intellect. It implements some core functionality and utilities on top of kdb+, allowing developers to concentrate on the application business logic.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>experience on Tao's blog</title><link>https://shawntao1011.github.io/quantDevBlog/categories/experience/</link><description>Recent content in experience on Tao's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>shawntao1011</copyright><lastBuildDate>Thu, 04 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://shawntao1011.github.io/quantDevBlog/categories/experience/index.xml" rel="self" type="application/rss+xml"/><item><title>CMake Tips</title><link>https://shawntao1011.github.io/quantDevBlog/p/cmake-tips/</link><pubDate>Thu, 04 Jan 2024 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/cmake-tips/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/cmake-tips/images/CMakeLogo.svg" alt="Featured image of post CMake Tips" />&lt;p>Notes on using cmake.&lt;/p>
+&lt;p>Gonna explain and document follow a &lt;strong>PREP&lt;/strong>( POINT REASON EXAMPLE POINT ) style.&lt;/p>
+&lt;h2 id="how-to-copy-the-runtime-dll">How to copy the runTime dll&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmake" data-lang="cmake">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">add_custom_command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">TARGET&lt;/span> &lt;span class="s">targetName&lt;/span> &lt;span class="s">POST_BUILD&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">COMMAND&lt;/span> &lt;span class="o">${&lt;/span>&lt;span class="nv">CMAKE_COMMAND&lt;/span>&lt;span class="o">}&lt;/span> &lt;span class="s">-E&lt;/span> &lt;span class="s">copy&lt;/span> &lt;span class="s">-t&lt;/span> &lt;span class="o">$&amp;lt;&lt;/span>&lt;span class="nv">TARGET_FILE_DIR:targetName&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="o">$&amp;lt;&lt;/span>&lt;span class="nv">TARGET_RUNTIME_DLLS:targetName&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">COMMAND_EXPAND_LISTS&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>For windows, a dynamic library consists of two files(xxx.lib file and xxx.dll). The .lib file is required when linking to corresponding exe and library. The .lib is useless during RUNTIME. The .dll file is required during RUNTIME, to run executable or run cmake test, we need to copy the .dll to the corresponding exe directory.&lt;/p>
+&lt;h2 id="how-to-add-precompiled-lib">How to add precompiled lib?&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmake" data-lang="cmake">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">add_library&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="s">libName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">[SHARED|STATIC]&lt;/span> &lt;span class="s">IMPORTED&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="c"># linux
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nb">set_property&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">TARGET&lt;/span> &lt;span class="s">libName&lt;/span> &lt;span class="s">PROPERTY&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">IMPORTED_IMPLIB&lt;/span> &lt;span class="s">[pathToLibDir]/officialLibName.[a|so]&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="c"># windows
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="nb">set_property&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">TARGET&lt;/span> &lt;span class="s">libName&lt;/span> &lt;span class="s">PROPERTY&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">IMPORTED_IMPLIB&lt;/span> &lt;span class="s">[pathToLibDir]/officialLibName.lib&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">set_property&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">TARGET&lt;/span> &lt;span class="s">libName&lt;/span> &lt;span class="s">PROPERTY&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">IMPORTED_LOCATION&lt;/span> &lt;span class="s">[pathToLibDir]/officialDllName.dll&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Though vcpkg and linux package provide us with good and easy method to download package, which can be easy find through cmake &lt;code>find_package&lt;/code>, the following occasion require to use other method to find a library and link to it:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>link to a precomiled lib or library not available through package manage system. &lt;/p>For instance, &lt;a class="link" href="https://solace.com/downloads/" target="_blank" rel="noopener"
+>Solace&lt;/a> library is not available through &lt;code>vcpkg&lt;/code> or &lt;code>apt-get&lt;/code>. The downloaded file will contain the lib and dll we need. &lt;/p> File tree:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">solclient-[version]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---win32
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---solclient.dll
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---win64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---solclient.dll
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---include
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---solclient.h
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---solclientMsg.h
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---lib
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---win32
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---solclient.lib
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---win64
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">|&lt;/span>---solclient.lib
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Take windows x64 build for example, the &lt;code>CMakeLists.txt&lt;/code> will be:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmake" data-lang="cmake">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">add_library&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="s">SOLACE_LIB&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">SHARED&lt;/span> &lt;span class="s">IMPORTED&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">set_property&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">TARGET&lt;/span> &lt;span class="s">SOLACE_LIB&lt;/span> &lt;span class="s">PROPERTY&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">IMPORTED_IMPLIB&lt;/span> &lt;span class="s">.../solclient-[version]/&lt;/span>&lt;span class="o">${&lt;/span>&lt;span class="nv">CMAKE_GENERATER_PLATFORM&lt;/span>&lt;span class="o">}&lt;/span>&lt;span class="s">/lib/solclient.lib&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">set_property&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">TARGET&lt;/span> &lt;span class="s">libName&lt;/span> &lt;span class="s">PROPERTY&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">IMPORTED_LOCATION&lt;/span> &lt;span class="s">.../solclient-[version]/&lt;/span>&lt;span class="o">${&lt;/span>&lt;span class="nv">CMAKE_GENERATER_PLATFORM&lt;/span>&lt;span class="o">}&lt;/span>&lt;span class="s">/lib/solclient.dll&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">target_include_directories&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="s">targetName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">[PRIVATE|PUBLIC|INTERFACE]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">.../solclient-[version]/include&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">target_link_libraries&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">targetName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">SOLACE_LIB&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>find_package&lt;/code> fail to find the correct dll. Take &lt;code>zlib&lt;/code> for example, the following cmake steps work as expected.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmake" data-lang="cmake">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">find_library&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">ZLIB&lt;/span> &lt;span class="s">REQUIRED&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">target_link_libraries&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="s">targetName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">ZLIB::ZLIB&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>However, when it comes to coping the dll, cmake will fail to find the correct one as zlib&amp;rsquo;s dll name is not exactly &lt;code>zlib.dll&lt;/code>( Release mode: zlib&lt;font color=red>1&lt;/font>.dll Debug mode: zlib&lt;font color=red>d1&lt;/font>.dll ).&lt;/p>
+&lt;p>In this scenario, whether to switch from &lt;code>find_package&lt;/code> to &lt;code>add_library&lt;/code> is up to one&amp;rsquo;s favor.&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>torQ notes</title><link>https://shawntao1011.github.io/quantDevBlog/p/torq-notes/</link><pubDate>Thu, 19 Oct 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/torq-notes/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/torq-notes/images/torQLogo.png" alt="Featured image of post torQ notes" />&lt;p>Torq, mainly the &lt;font color=blue>torq.q&lt;/font>, is a framework provided by Data Intellect. It implements some core functionality and utilities on top of kdb+, allowing developers to concentrate on the application business logic.&lt;/p>
 &lt;p>&lt;img src="https://shawntao1011.github.io/quantDevBlog/quantDevBlog/p/torq-notes/images/TorQStructure.png"
 width="1138"
 height="672"

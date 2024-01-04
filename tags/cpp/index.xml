@@ -1,4 +1,46 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>cpp on Tao's blog</title><link>https://shawntao1011.github.io/quantDevBlog/tags/cpp/</link><description>Recent content in cpp on Tao's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>shawntao1011</copyright><lastBuildDate>Fri, 17 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://shawntao1011.github.io/quantDevBlog/tags/cpp/index.xml" rel="self" type="application/rss+xml"/><item><title>network programming concepts</title><link>https://shawntao1011.github.io/quantDevBlog/p/network-programming-concepts/</link><pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/network-programming-concepts/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/network-programming-concepts/images/networkProgrammingConcepts.png" alt="Featured image of post network programming concepts" />&lt;p>My notes on learning network programming. This post is mainly on concepts and examples from&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>cpp on Tao's blog</title><link>https://shawntao1011.github.io/quantDevBlog/tags/cpp/</link><description>Recent content in cpp on Tao's blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>shawntao1011</copyright><lastBuildDate>Tue, 02 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://shawntao1011.github.io/quantDevBlog/tags/cpp/index.xml" rel="self" type="application/rss+xml"/><item><title>pulsar build</title><link>https://shawntao1011.github.io/quantDevBlog/p/pulsar-build/</link><pubDate>Tue, 02 Jan 2024 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/pulsar-build/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/pulsar-build/images/pulsarLogo.svg" alt="Featured image of post pulsar build" />&lt;p>My notes on building and using Pulsar on windows.&lt;/p>
+&lt;p>Pulsar git: &lt;a class="link" href="https://github.com/apache/pulsar-client-cpp.git" target="_blank" rel="noopener"
+>https://github.com/apache/pulsar-client-cpp.git&lt;/a>&lt;/p>
+&lt;p>Pulsar cpp client: &lt;a class="link" href="https://github.com/apache/pulsar-client-cpp.git" target="_blank" rel="noopener"
+>https://github.com/apache/pulsar-client-cpp.git&lt;/a>&lt;/p>
+&lt;h2 id="build-on-windows">Build on windows&lt;/h2>
+&lt;p>The official buidling guide is to RUN vcpkg &lt;font color=red>first &lt;/font>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="line">&lt;span class="cl">[Your path to vcpkg repo]\vcpkg.exe install --feature-flags=manifests --triplet x64-windows
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>and then run the following:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">cmake \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -B ./build \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -A x64 \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -DBUILD_TESTS=OFF \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -DVCPKG_TRIPLET=x64-windows \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -DCMAKE_BUILD_TYPE=Release \
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -DCMAKE_TOOLCHAIN_FILE=[vcpkgPath]/vcpkg.cmake
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -S .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cmake --build ./build --config Release
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>However, this method will generate two vcpkg directories to manage, which are ${PROJECT_SOURCE_DIR} and ${CMAKE_CURRENT_BINARY_DIR}.&lt;/p>
+&lt;p>The above package install method is much like JS package managing method, which managing package dependency for each project. In favor of using Linux method, I recommend &lt;code>vcpkg install&lt;/code> all the package under &lt;em>vcpkg&lt;/em> directory.&lt;/p>
+&lt;p>By default, if there is a &lt;code>vcpkg.json&lt;/code> file under the ${PROJECT_SOURCE_DIR}, then vcpkg will use the MANIFEST mode. To clarify, vcpkg will check what package is available in ${VCPKG_INSTALLEd_DIR}, and install missing package under ${CMAKE_CURRENT_SOURCE_DIR}.&lt;/p></description></item><item><title>network programming concepts</title><link>https://shawntao1011.github.io/quantDevBlog/p/network-programming-concepts/</link><pubDate>Fri, 17 Nov 2023 00:00:00 +0000</pubDate><guid>https://shawntao1011.github.io/quantDevBlog/p/network-programming-concepts/</guid><description>&lt;img src="https://shawntao1011.github.io/quantDevBlog/p/network-programming-concepts/images/networkProgrammingConcepts.png" alt="Featured image of post network programming concepts" />&lt;p>My notes on learning network programming. This post is mainly on concepts and examples from&lt;/p>
 &lt;p>&lt;a class="link" href="https://beej.us/guide/bgnet/" target="_blank" rel="noopener"
 >Beej&amp;rsquo;s Guide to Network Programming Using Internet Sockets&lt;/a>&lt;/p>
 &lt;p>The original Beej&amp;rsquo;s guide only provide Unix/Linux source code examples. Windows example src, mentioned in Beej&amp;rsquo;s guide, is provided on&lt;/p>
