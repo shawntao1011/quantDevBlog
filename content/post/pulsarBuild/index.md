@@ -37,7 +37,7 @@ cmake \
  -DBUILD_TESTS=OFF \
  -DVCPKG_TRIPLET=x64-windows \
  -DCMAKE_BUILD_TYPE=Release \
- -DCMAKE_TOOLCHAIN_FILE=[vcpkgPath]/vcpkg.cmake
+ -DCMAKE_TOOLCHAIN_FILE=E:/vcpkg/scripts/buildsystems/vcpkg.cmake
  -S .
 cmake --build ./build --config Release
 ```
