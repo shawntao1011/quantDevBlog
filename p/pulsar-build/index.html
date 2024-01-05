@@ -19,7 +19,7 @@
 </span></span><span class=line><span class=cl> -DBUILD_TESTS=OFF \
 </span></span><span class=line><span class=cl> -DVCPKG_TRIPLET=x64-windows \
 </span></span><span class=line><span class=cl> -DCMAKE_BUILD_TYPE=Release \
-</span></span><span class=line><span class=cl> -DCMAKE_TOOLCHAIN_FILE=[vcpkgPath]/vcpkg.cmake
+</span></span><span class=line><span class=cl> -DCMAKE_TOOLCHAIN_FILE=E:/vcpkg/scripts/buildsystems/vcpkg.cmake
 </span></span><span class=line><span class=cl> -S .
 </span></span><span class=line><span class=cl>cmake --build ./build --config Release
 </span></span></code></pre></td></tr></table></div></div><p>However, this method will generate two vcpkg directories to manage, which are ${PROJECT_SOURCE_DIR} and ${CMAKE_CURRENT_BINARY_DIR}.</p><p>The above package install method is much like JS package managing method, which managing package dependency for each project. In favor of using Linux method, I recommend <code>vcpkg install</code> all the package under <em>vcpkg</em> directory.</p><p>By default, if there is a <code>vcpkg.json</code> file under the ${PROJECT_SOURCE_DIR}, then vcpkg will use the MANIFEST mode. To clarify, vcpkg will check what package is available in ${VCPKG_INSTALLEd_DIR}, and install missing package under ${CMAKE_CURRENT_SOURCE_DIR}.</p></section><footer class=article-footer><section class=article-tags><a href=/quantDevBlog/tags/messaging/>messaging</a>

@@ -174,7 +174,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -DBUILD_TESTS=OFF \
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -DVCPKG_TRIPLET=x64-windows \
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -DCMAKE_BUILD_TYPE=Release \
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -DCMAKE_TOOLCHAIN_FILE=[vcpkgPath]/vcpkg.cmake
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -DCMAKE_TOOLCHAIN_FILE=E:/vcpkg/scripts/buildsystems/vcpkg.cmake
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -S .
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cmake --build ./build --config Release
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
